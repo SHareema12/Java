@@ -1,0 +1,41 @@
+import java.io.IOException;
+import java.util.Scanner;
+
+//Written and submitted by Safia Hareema
+
+public class RadixSortTest {
+
+	public static void main(String[] args) throws IOException {
+		String dir = System.getProperty("user.dir");
+		Scanner scanner = new Scanner(System.in);
+		String userInputFile = "", userOutputFile = ""; 
+		System.out.println("Please enter the input file name or enter '0' for default");
+		userInputFile = scanner.nextLine();
+		System.out.println("Please enter the output file name or enter '0' for default");
+		userOutputFile = scanner.nextLine();
+		if (userInputFile.equals("0")){
+			userInputFile = "f.txt";	
+		}
+		
+		if (userOutputFile.equals("0")){
+			userOutputFile = "g.txt";	
+		}
+		System.out.println("user input: " + userInputFile);
+		System.out.println("user output: " + userOutputFile);
+		
+		userInputFile = dir + "/" + userInputFile; 
+		userOutputFile = dir + "/" + userOutputFile; 
+		
+		//userInputFile = args[0]; 
+		LSDRadixSort test = new LSDRadixSort(userInputFile);
+		
+		//userOutputFile = args[1];
+		test.radixSort();
+		
+		test.printArray(userOutputFile);
+		System.out.println("Total number of words (n): " + test.getTotalWords());
+		System.out.println("Total number of character operations: " + test.getCharacterOperations());
+		System.out.println("# of operations/constant K value of 21: " + (test.getCharacterOperations()/21) + " --> O(n) running time");
+	}
+
+}

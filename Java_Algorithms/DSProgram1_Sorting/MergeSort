@@ -1,0 +1,118 @@
+
+import java.util.*;
+
+
+public class MergeSort {
+    public int[] array;
+    public static int comparisonCount = 0;
+
+    public MergeSort(int[] arr) {
+        this.array = arr;
+    }
+
+    public int getCompCount() {
+        return comparisonCount;
+    }
+
+    //recursive mergesort method
+    public int[] sort(int[] arr) {
+        if(arr.length == 1) {
+            return arr;
+        }
+        int[] arrayCopy = new int[arr.length];
+        System.arraycopy(arr, 0, arrayCopy, arr.length, 0);
+        int[] leftCopy = new int[arr.length/2];
+        int[] rightCopy = new int[arr.length - leftCopy.length];
+        System.arraycopy(arr, 0, leftCopy, 0, leftCopy.length);
+        System.arraycopy(arr, leftCopy.length, rightCopy, 0, rightCopy.length);
+        leftCopy = sort(leftCopy);
+        rightCopy = sort(rightCopy);
+        arrayCopy = merge(leftCopy,rightCopy);
+        this.array = arrayCopy;
+        return arrayCopy;
+    }
+
+
+    // merge method that merges array subparts together
+    public int[] merge(int[] leftArr, int[] rightArr) {
+        int[] result = new int[leftArr.length + rightArr.length];
+        int currentLeft = 0, currentRight = 0, compareResult, pos = 0;
+        while(currentLeft < leftArr.length && currentRight < rightArr.length) {
+            compareResult = compare(leftArr[currentLeft],rightArr[currentRight]);
+            //left array element is larger, copy right element, increment currentRight
+            if (compareResult == 1) {
+                result[pos] = rightArr[currentRight];
+                currentRight++;
+                pos++;
+            }
+            //right array element is larger or equal to left, copy left element, increment currentLeft
+            else if (compareResult == -1 || compareResult == 0){
+                result[pos] = leftArr[currentLeft];
+                currentLeft++;
+                pos++;
+            }
+
+        }
+
+        //elements remaining in right half that need to be copied
+        if (currentRight < rightArr.length) {
+            for (int i = currentRight; i < rightArr.length; i++) {
+                result[pos] = rightArr[i];
+                pos++;
+            }
+        }
+
+        //elements left in left half that need to be copied
+        if (currentLeft < leftArr.length) {
+            for(int i = currentLeft; i < leftArr.length; i++) {
+                result[pos] = leftArr[i];
+                pos++;
+            }
+        }
+        return result;
+
+    }
+
+
+    // comparison count method
+    public int compare(int x, int y) {
+        comparisonCount++;
+        int result;
+        if (x > y)
+            result = 1;
+        else if (x < y)
+            result = -1;
+        else
+            result = 0;
+        return result;
+    }
+
+    public void printArray() {
+        for(int i: array) {
+            System.out.print(i + " ");
+        }
+    }
+
+
+
+    public static void main(String[] args) {
+        int[] test = new int[8];
+        test[0] = 5;
+        test[1] = 3;
+        test[2] = 4;
+        test[3] = 2;
+        test[4] = 6;
+        test[5] = 2;
+        test[6] = 8;
+        test[7] = 1;
+        MergeSort ms = new MergeSort(test);
+        System.out.println("Array before MergeSort:");
+        ms.printArray();
+        System.out.println();
+        test = ms.sort(ms.array);
+        System.out.println("Array after MergeSort:");
+        ms.printArray();
+        System.out.println();
+        System.out.println("Number of key comparisons: " + ms.getCompCount());
+    }
+}

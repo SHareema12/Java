@@ -1,0 +1,7 @@
+Given an array A[ ] of n elements and an integer k in the range [1, n], the function
+SELECT (dtype A[ ], int n, int k)
+returns the kth smallest element of the array. (For example, k = 1 is the smallest element, k = n is the
+largest, and k = n/2 is the median.) In this programming assignment, you are to implement SELECT
+using three different algorithms as described below, and compare their performance in terms of the number
+of key comparisons. (Do not perform the key comparisons in-line. Rather, use a function to perform each
+key comparison, while incrementing a counter.)

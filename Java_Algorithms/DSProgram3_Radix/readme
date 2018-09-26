@@ -1,0 +1,9 @@
+This assignment is to alphabetically sort n strings, each with maximum-length of k = 21 characters. (You
+may assume n ≤ 1000.) The algorithm to be used is LSD (Least-Significant-Digit-First) radixsort. The
+algorithm must run in O(n) time, where one character operation takes one unit of time. You must handle
+the strings on a character-by-character basis, one character at a time. (Each character operation takes
+O(1) time.)
+The strings consist of only upper-case letters A-Z, with no space. The strings need not be distinct. (For
+example, there may be several PATEL in a class list!)
+Each string has at most k characters. Shorter strings must be padded with blank characters (as they are
+read from a file) to reach the fixed length of k.

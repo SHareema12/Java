@@ -1,0 +1,2 @@
+In this homework you will be implementing a class SpellChecker that checks if words in a file are valid based on a dictionary that can be modified to include additional valid words.
+The output of the spell checker will be a new text file that contains only valid words.

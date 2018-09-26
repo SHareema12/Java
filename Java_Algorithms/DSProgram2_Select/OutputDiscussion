@@ -1,0 +1,15 @@
+Results and Discussion
+	Size 	# Key Comparisons	Constant Factor 
+Select1	10,000	174750	1.32
+Select1	100,000	6343293	4.78
+Select1	1,000,000	512971339	38.6
+Select2	10,000	57612	5.76
+Select2	100,000	450383	4.50
+Select2	1,000,000	2874567	2.87
+
+Overview: 
+Select1 algorithm: Quicksort. Avg time: O(nlogn) Worst Case time: O(n^2)
+Select2 algorithm: Selection sort if N <=25, Quick K Select otherwise. Avg time: O(n) Worst Case Time: O(n^2). 
+
+Discussion: 
+As we can see from the tabulated results above, Select1 algorithm performed considerably less well than Select2 algorithm. For the quick sort algorithm, the constant factors dramatically increase as we increase the size of N by a factor of 10. On the flip side, the constant factor decreased as we increased size of N by 10 fold. This means that eventually, for very large sizes of N, the constant would approach 1 and the algorithm would run at O(n) time efficiency. This has to do with the nature of the algorithm, and how a chunk of the data is disregarded in order to get the Ksmallest item. 

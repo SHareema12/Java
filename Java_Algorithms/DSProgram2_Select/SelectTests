@@ -1,0 +1,70 @@
+import java.util.Random;
+
+public class TestingSELECT {
+	Random random = new Random();
+
+	public static void main(String[] args) {
+		int ksmallest;
+		Random random = new Random();
+
+		System.out.println("10,000 sized array--RANDOMIZED");
+		int[] random_10k = new int[10000];
+		for (int i = 0; i < random_10k.length; i++) {
+		random_10k[i] = random.nextInt(1000);
+		//System.out.print(random_32[i] + " ");
+		}
+		
+		System.out.println("100,000 sized array--RANDOMIZED");
+		int[] random_100k = new int[100000];
+		for (int i = 0; i < random_100k.length; i++) {
+		random_100k[i] = random.nextInt(1000);
+		//System.out.print(random_32[i] + " ");
+		}
+		System.out.println("1,000,000 sized array--RANDOMIZED");
+		int[] random_mill = new int[1000000];
+		for (int i = 0; i < random_mill.length; i++) {
+		random_mill[i] = random.nextInt(1000);
+		//System.out.print(random_32[i] + " ");
+		}
+
+		System.out.println();
+		Select1 qs = new Select1();
+		//
+		// QuickSort
+		//qs.printArray();
+		ksmallest = qs.SELECT(random_10k, random_10k.length, random_10k.length/2);
+		//qs.printArray();
+		System.out.println("Algorithm SELECT1: Size: " + random_10k.length + ", N: " + random_10k.length/2 + ", A[k]: " + ksmallest + ", #Comparisons: " + qs.comparisonCount);
+		qs.resetCompCount();
+		System.out.println();
+		Select2 sel2 = new Select2();
+		ksmallest = sel2.SELECT(random_10k, random_10k.length, random_10k.length/2);
+		System.out.println("Algorithm SELECT2: Size: " + random_10k.length + ", N: " + random_10k.length/2 + ", A[k]: " + ksmallest + ", #Comparisons: " + sel2.comparisonCount);
+		sel2.resetCompCount();
+		//sel2.printArray();
+		System.out.println();
+		ksmallest = qs.SELECT(random_100k, random_100k.length, random_100k.length/2);
+		//qs.printArray();
+		System.out.println("Algorithm SELECT1: Size: " + random_100k.length + ", N: " + random_100k.length/2 + ", A[k]: " + ksmallest + ", #Comparisons: " + qs.comparisonCount);
+		qs.resetCompCount();
+		System.out.println();
+		ksmallest = sel2.SELECT(random_100k, random_100k.length, random_100k.length/2);
+		//qs.printArray();
+		System.out.println("Algorithm SELECT2: Size: " + random_100k.length + ", N: " + random_100k.length/2 + ", A[k]: " + ksmallest + ", #Comparisons: " + sel2.comparisonCount);
+		sel2.resetCompCount();
+		ksmallest = qs.SELECT(random_mill, random_mill.length, random_mill.length/2);
+		//qs.printArray();
+		System.out.println();
+		System.out.println("Algorithm SELECT1: Size: " + random_mill.length + ", N: " + random_mill.length/2 + ", A[k]: " + ksmallest + ", #Comparisons: " + qs.comparisonCount);
+		qs.resetCompCount();
+		System.out.println();
+		ksmallest = sel2.SELECT(random_mill, random_mill.length, random_mill.length/2);
+		//qs.printArray();
+		System.out.println("Algorithm SELECT2: Size: " + random_mill.length + ", N: " + random_mill.length/2 + ", A[k]: " + ksmallest + ", #Comparisons: " + sel2.comparisonCount);
+		sel2.resetCompCount();
+		
+		
+	}
+
+
+}

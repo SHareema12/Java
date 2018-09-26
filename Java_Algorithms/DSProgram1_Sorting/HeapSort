@@ -1,0 +1,152 @@
+
+public class HeapSort {
+    public int comparisonCount = 0;
+    public int[] heap;
+    public int heapSize;
+    public int[] sortedHeap;
+
+    public HeapSort(int[] array) {
+        int[] temp = new int[array.length + 1];
+        for (int i = 0; i < array.length; i++) {
+            temp[i + 1] = array[i];
+        }
+        this.heap = temp;
+        //printArray();
+        this.heapSize = array.length;
+        buildHeap(heap, 1, heapSize);
+    }
+
+    public void setNewHeap(int[] array) {
+        int[] temp = new int[array.length + 1];
+        for (int i = 0; i < array.length; i++) {
+            temp[i + 1] = array[i];
+        }
+        this.heap = temp;
+        printArray();
+        this.heapSize = array.length;
+        buildHeap(heap, 1, heapSize);
+    }
+
+    public int getCompCount() {
+        return comparisonCount;
+    }
+
+    public int[] sort() {
+        int[] result = new int[heapSize];
+        System.out.println("result size: " + result.length);
+        int min;
+        // keep deleting min and pushing down until no elements left
+        for (int i = 0; i < result.length; i++) {
+            min = deleteMin();
+            //System.out.println("Min: " + min);
+            result[i] = min;
+        }
+        sortedHeap = result;
+        return result;
+    }
+
+    public void buildHeap(int[] array, int root, int heapSize) {
+        // at leaf node
+        if (2 * root > heapSize) {
+            return;
+        }
+        // build left subtree
+        buildHeap(array, 2 * root, heapSize);
+        // build right subtree
+        buildHeap(array, 2 * root + 1, heapSize);
+        pushDown(array, root, heapSize);
+    }
+
+    public int deleteMin() {
+        // remove root then pushdown
+        int temp;
+        temp = heap[1];
+        heap[1] = heap[heapSize];
+        heapSize--;
+        heap = pushDown(heap, 1, heapSize);
+        return temp;
+    }
+
+    public int[] pushDown(int[] heap, int root, int heapSize) {
+        // Left and right subtrees of root are already in Heap property
+        int smallerChild, comparison, temp;
+        // already at leaf node
+        if ((2 * root) > heapSize) {
+            return heap;
+        }
+        // pick smaller child if it is left child
+        //only left child
+        if ((2 * root == heapSize)) {
+            smallerChild = 2 * root;
+        } else {
+            //have both left and right child, need to select smaller child
+            comparison = compare(heap[2 * root], heap[(2 * root) + 1]);
+            //left child is smaller
+            if (comparison == -1) {
+                smallerChild = 2 * root;
+                //right child is smaller
+            } else {
+                smallerChild = 2 * root + 1;
+            }
+        }
+        comparison = compare(heap[root], heap[smallerChild]);
+        // root is smaller than or equal to child
+        if (comparison == -1 || comparison == 0) {
+            return heap;
+        } else {
+            // swap
+            temp = heap[root];
+            heap[root] = heap[smallerChild];
+            heap[smallerChild] = temp;
+            heap = pushDown(heap, smallerChild, heapSize);
+        }
+        return heap;
+    }
+
+    // comparison count method
+    public int compare(int x, int y) {
+        this.comparisonCount++;
+        int result;
+        if (x > y)
+            result = 1;
+        else if (x < y)
+            result = -1;
+        else
+            result = 0;
+        return result;
+    }
+
+    public void printArray() {
+        for (int i = 1 ; i< heap.length; i++) {
+            System.out.print(heap[i] + " ");
+        }
+    }
+
+    public void printSortedHeap() {
+        for (int i : sortedHeap) {
+            System.out.print(i + " ");
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] test = new int[7];
+        test[0] = 5;
+        test[1] = 3;
+        test[2] = 4;
+        test[3] = 2;
+        test[4] = 6;
+        test[5] = 2;
+        test[6] = 8;
+        //test[7] = 1;
+        HeapSort hs = new HeapSort(test);
+        System.out.println("Array before HeapSort:");
+        hs.printArray();
+        System.out.println();
+        test = hs.sort();
+        System.out.println("Array after HeapSort:");
+        hs.printSortedHeap();
+        System.out.println();
+        System.out.println("Number of key comparisons: " + hs.getCompCount());
+    }
+
+}
